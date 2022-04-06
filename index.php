@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TimeReka</title>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <link href="
     https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -20,18 +21,18 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
-</div>
 <div class="container justify-content-around">
   <div class="row p-1">
     <div class="col">
       <h3>Reka Time for Client</h3>
     </div>
-    <div class="col-3">
+    <div class="col-3 gy-1">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Создать проект
       </button>
     </div>
   </div>
+</div>
 <div class="container">
 <div class="row">
 <!-- Данные -->
@@ -47,16 +48,18 @@ if ($result = $conn->query($sql)) {
   echo "<div class='col'>";
   echo "<div class='row'>";
   echo "<div class='col-1 border-bottom bg-light'><h5>ID</h5></div>
-  <div class='col-5 border-bottom bg-light'><h5>ASANA</h5></div>
+  <div class='col-2 border-bottom bg-light'><h5>ASANA</h5></div>
   <div class='col-5 border-bottom bg-light'><h5>NAME</h5></div>
-  <div class='col-1 border-bottom bg-light'><h5>TIME</h5></div>";
+  <div class='col-1 border-bottom bg-light'><h5>TIME</h5></div>
+  <div class='col-2 border-bottom bg-light'><h5>PROJECT</h5></div>";
   echo "</div>";
   foreach ($result as $row) {
     echo "<div class='row'>";
       echo "<div class='col-1 bg-light'>" . $row["id"] . "</div>";
-      echo "<div class='col-5 bg-light bg-light'>" . "<a target='_blank' href=" . $row["asana"]. ">". "Асана" . "</a>" ."</div>";
+      echo "<div class='col-2 bg-light bg-light'>" . "<a target='_blank' href=" . $row["asana"]. ">". "Асана" . "</a>" ."</div>";
       echo "<div class='col-5 bg-light'>" . $row["name"] . "</div>";
       echo "<div class='col-1 bg-light'>" . $row["time"] . "</div>";
+      echo "<div class='col-2 bg-light'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
     echo "</div>";
   }
   echo "</div>";
@@ -72,15 +75,41 @@ $conn->close();
 
 <div class="col-3 gy-6">
 <div class="p-3 border bg-light">
-<form action="create.php" method="post" class="form-group">
+<form action="create.php" method="post" class="form-group"> <h5 class="d-flex justify-content-center">Завести время</h5>
   <div class="col">Асана:
     <input type="text" name="asana" class="form-control"></div>
   <div class="col">Проект:
     <input type="text" name="name" class="form-control"></div>
   <div class="col">Время:
     <input type="text" name="time" class="form-control"></div>
-  <div class="col py-3">
-    <input class="btn btn-outline-primary p-2" type="submit" value="Добавить">
+    <!-- Форма - Список проектов -->
+<div class="col"> Выберете проект:
+
+      <p><select name="select" class="form-select" aria-label="Default select example" onchange="document.getElementById('addProject').value=value">
+        <?php
+        $connDrop = new mysqli('rekatime', 'root', 'DEUSEXMACHINA27', 'rekatime');
+        if ($connDrop->connect_error){
+          echo ("Ошибка".$connDrop->connect_error);
+        }
+          $sqlDrop = "SELECT * FROM projectreka";
+          if ($resultDrop = $connDrop->query($sqlDrop)){
+            $rowsCountDrop = $resultDrop->num_rows;
+            echo "<option selected>Выберете проект</option>";
+            foreach ($resultDrop as $rowDrop){
+            echo "<option name='project' value='" . $rowDrop["project"] . "' >" . $rowDrop["project"] . "</option>";
+          }
+          $resultDrop->free();
+        } else {
+          echo "Ошибка: " . $conn->error;
+        }
+        $connDrop->close();
+        ?>
+      </select>
+      <input type="text" name="project" id="addProject" value="" class="form-control" readonly hidden>
+</div>
+  <div class="col py-1 d-flex justify-content-around">
+    <input class="btn btn btn-secondary p-2" type="reset" value="Очистить форму">
+    <input class="btn btn-primary p-2" type="submit" value="Добавить">
   </div>
 </form>
 </div>
@@ -101,12 +130,12 @@ $conn->close();
           <div>
             Название проекта:
             <input type="text" name="project" class="form-control">
-            <input class="btn btn-outline-primary p-2" type="submit" value="Добавить">
+
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-
+        <input class="btn btn-primary p-1" type="submit" value="Добавить">
+        <button type="button" class="btn btn-outline-secondary p-1" data-bs-dismiss="modal">Закрыть</button>
       </div>
     </div>
   </div>
