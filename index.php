@@ -24,21 +24,32 @@
 <div class="container justify-content-around">
   <div class="row p-1">
     <div class="col">
-      <h3>Reka Time for Client</h3>
+      <h3>Reka Time for Clients</h3>
     </div>
+
+
     <div class="col-3 gy-1">
     <form action="filterProject.php" method="get">
-      <select name="select" class="form-select" aria-label="Default select example" onchange="document.getElementById('filterProject').value=value">
-        <?php
-        require_once "filterProject.php";
-        filterProject();
-        ?>
-
-      </select>
-      <input type="text" name="project" id="filterProject" value="" class="form-control" readonly hidden>
-      <button class="btn btn-primary p-2" type="submit">Отфильтровать</button>
-    </form>
+      <div class="container">
+      <div class="row">
+        <div class-"col">
+          <select name="select" class="form-select"  aria-label="Default select example" onchange="document.getElementById('filterProject').value=value">
+            <?php
+            require_once "filterProject.php";
+            filterProject();
+            ?>
+          </select>
+          <input type="text" name="project" id="filterProject" value="" class="form-control" readonly hidden>
+        </div>
+        <div class="col offset-md-4">
+          <button class="btn btn-outline-primary btn-sm p-2" type="submit">Отфильтровать</button>
+        </div>
+      </div>
     </div>
+    </form>
+  </div>
+
+
     <div class="col-3 gy-1">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Создать проект
