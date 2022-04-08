@@ -27,6 +27,19 @@
       <h3>Reka Time for Client</h3>
     </div>
     <div class="col-3 gy-1">
+    <form action="filterProject.php" method="get">
+      <select name="select" class="form-select" aria-label="Default select example" onchange="document.getElementById('filterProject').value=value">
+        <?php
+        require_once "filterProject.php";
+        filterProject();
+        ?>
+
+      </select>
+      <input type="text" name="project" id="filterProject" value="" class="form-control" readonly hidden>
+      <button class="btn btn-primary p-2" type="submit">Отфильтровать</button>
+    </form>
+    </div>
+    <div class="col-3 gy-1">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Создать проект
       </button>
@@ -35,6 +48,7 @@
 </div>
 <div class="container">
 <div class="row">
+<div class="col">
 <!-- Данные -->
 <?php
 $conn = new mysqli('rekatime', 'root', 'DEUSEXMACHINA27', 'rekatime');
@@ -69,10 +83,8 @@ if ($result = $conn->query($sql)) {
 }
 $conn->close();
 ?>
-
-
+</div>
 <!-- Форма -->
-
 <div class="col-3 gy-6">
 <div class="p-3 border bg-light">
 <form action="create.php" method="post" class="form-group"> <h5 class="d-flex justify-content-center">Завести время</h5>
@@ -87,24 +99,10 @@ $conn->close();
 
       <p><select name="select" class="form-select" aria-label="Default select example" onchange="document.getElementById('addProject').value=value">
         <?php
-        $connDrop = new mysqli('rekatime', 'root', 'DEUSEXMACHINA27', 'rekatime');
-        if ($connDrop->connect_error){
-          echo ("Ошибка".$connDrop->connect_error);
-        }
-          $sqlDrop = "SELECT * FROM projectreka";
-          if ($resultDrop = $connDrop->query($sqlDrop)){
-            $rowsCountDrop = $resultDrop->num_rows;
-            echo "<option selected>Выберете проект</option>";
-            foreach ($resultDrop as $rowDrop){
-            echo "<option name='project' value='" . $rowDrop["project"] . "' >" . $rowDrop["project"] . "</option>";
-          }
-          $resultDrop->free();
-        } else {
-          echo "Ошибка: " . $conn->error;
-        }
-        $connDrop->close();
+        require_once "openProject.php";
+        openProject();
         ?>
-      </select>
+      </select></p>
       <input type="text" name="project" id="addProject" value="" class="form-control" readonly hidden>
 </div>
   <div class="col py-1 d-flex justify-content-around">
