@@ -21,45 +21,46 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
-<div class="container justify-content-around">
-  <div class="row p-1">
-    <div class="col">
-      <h3>Reka Time for Clients</h3>
+<div class="container ">
+  <div class="row p-1  justify-content-between">
+    <div class="col-3 gy-2">
+      <a href="index.php">
+        <img src="img/Frame 1.png" class="img-fluid">
+      </a>
     </div>
 
-
-    <div class="col-3 gy-1">
-    <form action="filterProject.php" method="get">
-      <div class="container">
-      <div class="row">
-        <div class-"col">
-          <select name="select" class="form-select"  aria-label="Default select example" onchange="document.getElementById('filterProject').value=value">
-            <?php
-            require_once "filterProject.php";
-            filterProject();
-            ?>
-          </select>
-          <input type="text" name="project" id="filterProject" value="" class="form-control" readonly hidden>
+<!--фильтр-->
+    <div class="col-6 gy-3">
+      <form action="filterProject.php" method="get" class="row justify-content-end">
+        <div class="col-5">
+          <div class-"col-5">
+            <select name="select" class="form-select"  aria-label="Default select example" onchange="document.getElementById('filterProject').value=value">
+              <?php
+              require_once "filterProject.php";
+              filterProject();
+              ?>
+            </select>
+            <input type="text" name="project" id="filterProject" value="" class="form-control" readonly hidden>
+          </div>
         </div>
-        <div class="col offset-md-4">
-          <button class="btn btn-outline-primary btn-sm p-2" type="submit">Отфильтровать</button>
+        <div class="col-3">
+          <input class="btn btn-outline-success btn-sm p-2" type="submit" id="button-addon1" value="Отфильтровать">
+        </div>
+      </form>
+    </div>
+
+    <!--кнопка создания проекта. Вызывает поп-ап-->
+    <div class="col-3 gy-3">
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Создать проект
+          </button>
         </div>
       </div>
-    </div>
-    </form>
-  </div>
 
-
-    <div class="col-3 gy-1">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Создать проект
-      </button>
-    </div>
-  </div>
-</div>
-<div class="container">
-<div class="row">
-<div class="col">
+<div class="container gy-3">
+<div class="row ">
+<div class="col gy-1">
 <!-- Данные -->
 <?php
 $conn = new mysqli('rekatime', 'root', 'DEUSEXMACHINA27', 'rekatime');
@@ -68,23 +69,21 @@ if ($conn->connect_error){
 }
 $sql = "SELECT * FROM projecttime";
 if ($result = $conn->query($sql)) {
-  $rowsCount = $result->num_rows;
-  echo "<p>Получено объектов: $rowsCount</p>";
   echo "<div class='col'>";
-  echo "<div class='row'>";
-  echo "<div class='col-1 border-bottom bg-light'><h5>ID</h5></div>
-  <div class='col-2 border-bottom bg-light'><h5>ASANA</h5></div>
-  <div class='col-5 border-bottom bg-light'><h5>NAME</h5></div>
-  <div class='col-1 border-bottom bg-light'><h5>TIME</h5></div>
-  <div class='col-2 border-bottom bg-light'><h5>PROJECT</h5></div>";
+  echo "<div class='row align-items-center justify-content-center'>";
+  echo "<div class='col-1 border-bottom bg-light text-center'><h5>id</h5></div>
+  <div class='col-1 border-bottom bg-light text-center'><h5>Асана</h5></div>
+  <div class='col-6 border-bottom bg-light text-center'><h5>Название</h5></div>
+  <div class='col-1 border-bottom bg-light text-center'><h5>Время</h5></div>
+  <div class='col-3 border-bottom bg-light text-center'><h5>Проект</h5></div>";
   echo "</div>";
   foreach ($result as $row) {
-    echo "<div class='row'>";
-      echo "<div class='col-1 bg-light'>" . $row["id"] . "</div>";
-      echo "<div class='col-2 bg-light bg-light'>" . "<a target='_blank' href=" . $row["asana"]. ">". "Асана" . "</a>" ."</div>";
-      echo "<div class='col-5 bg-light'>" . $row["name"] . "</div>";
-      echo "<div class='col-1 bg-light'>" . $row["time"] . "</div>";
-      echo "<div class='col-2 bg-light'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
+    echo "<div class='row justify-content-center'>";
+      echo "<div class='col-1  gy-2 align-self-center text-center'>" . $row["id"] . "</div>";
+      echo "<div class='col-1  gy-2 align-self-center text-center d-grid gap-2'>" . "<a target='_blank' href=" . $row["asana"]. " class='btn btn-outline-danger btn-sm'>". "Асана" . "</a>" ."</div>";
+      echo "<div class='col-6  gy-2 align-self-center'>" . $row["name"] . "</div>";
+      echo "<div class='col-1  gy-2 align-self-center '>" . $row["time"] . "</div>";
+      echo "<div class='col-3  gy-2 align-self-center'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
     echo "</div>";
   }
   echo "</div>";
@@ -121,6 +120,9 @@ $conn->close();
     <input class="btn btn-primary p-2" type="submit" value="Добавить">
   </div>
 </form>
+
+  </div>
+</div>
 </div>
 </div>
 </div>

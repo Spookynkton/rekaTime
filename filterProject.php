@@ -79,7 +79,7 @@ if(isset($_GET["project"]))
       }
     }
     else{
-            echo "<div>Пользователь не найден</div>";}
+            echo "<div>Задачи с таким проектом не найдены</div>";}
     $resultFilt->free();
   }
   else{
