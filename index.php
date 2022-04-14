@@ -52,7 +52,7 @@
     <!--кнопка создания проекта. Вызывает поп-ап-->
     <div class="col-3 gy-3">
         <div class="d-grid gap-2">
-          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Создать проект
           </button>
         </div>
@@ -69,21 +69,23 @@ if ($conn->connect_error){
 }
 $sql = "SELECT * FROM projecttime";
 if ($result = $conn->query($sql)) {
-  echo "<div class='col'>";
+  echo "<div class='col '>";
   echo "<div class='row align-items-center justify-content-center'>";
   echo "<div class='col-1 border-bottom bg-light text-center'><h5>id</h5></div>
   <div class='col-1 border-bottom bg-light text-center'><h5>Асана</h5></div>
-  <div class='col-6 border-bottom bg-light text-center'><h5>Название</h5></div>
+  <div class='col-5 border-bottom bg-light text-center'><h5>Название</h5></div>
   <div class='col-1 border-bottom bg-light text-center'><h5>Время</h5></div>
-  <div class='col-3 border-bottom bg-light text-center'><h5>Проект</h5></div>";
+  <div class='col-2 border-bottom bg-light text-center'><h5>Проект</h5></div>
+  <div class='col-1 '><h5></h5></div>";
   echo "</div>";
   foreach ($result as $row) {
     echo "<div class='row justify-content-center'>";
       echo "<div class='col-1  gy-2 align-self-center text-center'>" . $row["id"] . "</div>";
       echo "<div class='col-1  gy-2 align-self-center text-center d-grid gap-2'>" . "<a target='_blank' href=" . $row["asana"]. " class='btn btn-outline-danger btn-sm'>". "Асана" . "</a>" ."</div>";
-      echo "<div class='col-6  gy-2 align-self-center'>" . $row["name"] . "</div>";
+      echo "<div class='col-5  gy-2 align-self-center'>" . $row["name"] . "</div>";
       echo "<div class='col-1  gy-2 align-self-center '>" . $row["time"] . "</div>";
-      echo "<div class='col-3  gy-2 align-self-center'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
+      echo "<div class='col-2  gy-2 align-self-center'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
+      echo "<div class='col-1  gy-2 align-self-center text-center d-grid gap-2'>" . "<a href='update.php?id=" . $row["id"] . "' class='btn btn-outline-warning btn-sm'>". "Изменить" . "</a>" ."</div>";
     echo "</div>";
   }
   echo "</div>";
@@ -151,6 +153,5 @@ $conn->close();
     </div>
   </div>
 </div>
-
 </body>
 </html>
