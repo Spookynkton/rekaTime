@@ -37,8 +37,15 @@ if (isset($_POST['project'])){
   $project = $connP->real_escape_string($_POST['project']);
   $sqlP = "INSERT INTO projectreka (project) VALUES ('$project')";
   if($connP->query($sqlP)){
-    echo "<div class='col-md-auto'><h2 class='display-2'>Проект успешно добавлен!</h2></div>";
-    echo "<div class='col-9'> <form action='index.php'>";
+    echo "<div class='container'>
+      <div class='row p-1  justify-content-between'>
+    <div class='col-3 gy-2'>
+      <a href='index.php'>
+        <img src='img/Frame 1.png' class='img-fluid'>
+      </a>
+    </div></div></div>";
+    echo "<div class='col-md-auto gy-5'><h2 class='display-2'>Проект успешно добавлен!</h2></div>";
+    echo "<div class='col-9 gy-5'> <form action='index.php'>";
     echo "<div class='d-grid gap-2 col-6 mx-auto'>";
     echo "<button class='btn btn-primary'>BACK</button>";
     echo "</div>";

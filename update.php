@@ -35,18 +35,33 @@ if (!$connUp){
           $timeUp = $row["time"];
           $projectUp = $row["project"];
         }
-        echo "<h3>Обновление пользователя</h3>
-                <form method='post'>
+        echo "<div class='container'>
+        <div class='row'>
+          <div class='col-3 gy-2'>
+            <a href='index.php'>
+              <img src='img/Frame 1.png' class='img-fluid'>
+            </a>
+          </div>
+          </div>
+          <div class='row justify-content-center p-3'>
+          <div class='width-100%'></div>
+          <div class='col-4'>
+            <h3>Обновление проекта</h3></div>
+            <div class = 'widht-100%'></div>
+            <div class = 'col-4'>
+                <form method='post' class='form-group'>
                     <input type='hidden' name='id' value='$projectid' />
                     <p> id проекта: $idUp</p>
                     <p>Asana:
-                    <input type='text' name='asana' value='$asanaUp' /></p>
+                    <input type='text' name='asana' value='$asanaUp' / class='form-control'></p>
                     <p>Название:
-                    <input type='text' name='name' value='$nameUp' /></p>
+                    <input type='text' name='name' value='$nameUp' / class='form-control'></p>
                     <p>Время:
-                    <input type='text' name='time' value='$timeUp' /></p>
-                    <input type='submit' value='Сохранить'>
-            </form>";
+                    <input type='text' name='time' value='$timeUp' / class='form-control'></p>
+                    <input type='submit' value='Сохранить' class='btn btn-primary'>
+            </div>
+            </form>
+            </div>";
       }
       else{
         echo "<div>Проект не найден</div>";

@@ -24,13 +24,13 @@
 <div class="container ">
   <div class="row p-1  justify-content-between">
     <div class="col-3 gy-2">
-      <a href="index.php">
-        <img src="img/Frame 1.png" class="img-fluid">
+      <a href="main.php">
+        <img src="img/rekapeopleLogo.png" class="img-fluid">
       </a>
     </div>
 
 <!--фильтр-->
-    <div class="col-6 gy-3">
+    <div class="col-6 gy-2 align-self-center">
       <form action="filterProject.php" method="get" class="row justify-content-end">
         <div class="col-5">
           <div class-"col-5">
@@ -50,7 +50,7 @@
     </div>
 
     <!--кнопка создания проекта. Вызывает поп-ап-->
-    <div class="col-3 gy-3">
+    <div class="col-3 gy-2 align-self-center">
         <div class="d-grid gap-2">
           <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Создать проект
@@ -76,7 +76,7 @@ if ($result = $conn->query($sql)) {
   <div class='col-5 border-bottom bg-light text-center'><h5>Название</h5></div>
   <div class='col-1 border-bottom bg-light text-center'><h5>Время</h5></div>
   <div class='col-2 border-bottom bg-light text-center'><h5>Проект</h5></div>
-  <div class='col-1 '><h5></h5></div>";
+  <div class='col-2 '><h5>Статус</h5></div>";
   echo "</div>";
   foreach ($result as $row) {
     echo "<div class='row justify-content-center'>";
@@ -86,6 +86,8 @@ if ($result = $conn->query($sql)) {
       echo "<div class='col-1  gy-2 align-self-center '>" . $row["time"] . "</div>";
       echo "<div class='col-2  gy-2 align-self-center'> <div class='border rounded text-center'>" . $row["project"] . " </div> </div>";
       echo "<div class='col-1  gy-2 align-self-center text-center d-grid gap-2'>" . "<a href='update.php?id=" . $row["id"] . "' class='btn btn-outline-warning btn-sm'>". "Изменить" . "</a>" ."</div>";
+      echo "<div class='col-1  gy-2 align-self-center text-center d-grid gap-2'><form action='delete.php' method='post'><input type='text' name='id'value='" . $row["id"] . "' hidden>
+      <input type='submit' value='Удалить' class='btn btn-outline-danger btn-sm'></form></div>";
     echo "</div>";
   }
   echo "</div>";
@@ -99,7 +101,7 @@ $conn->close();
 <!-- Форма -->
 <div class="col-3 gy-6">
 <div class="p-3 border bg-light">
-<form action="create.php" method="post" class="form-group"> <h5 class="d-flex justify-content-center">Завести время</h5>
+<form action="create.php" method="post" class="form-group"> <h5 class="d-flex justify-content-center">Завести задачу</h5>
   <div class="col">Асана:
     <input type="text" name="asana" class="form-control"></div>
   <div class="col">Проект:
